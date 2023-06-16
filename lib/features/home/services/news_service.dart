@@ -26,8 +26,6 @@ class NewsService extends BaseNewsService {
 
   @override
   Future<News> getNewsDetails(String query) async {
-    print(
-        '${dio.options.baseUrl}search/v2/articlesearch.json?fq=web_url:($query)&api-key=${Constants.apiKey}');
     final res = await dio.get(
         'search/v2/articlesearch.json?fq=web_url:("$query")&api-key=${Constants.apiKey}');
 
