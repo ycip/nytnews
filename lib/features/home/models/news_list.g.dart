@@ -44,7 +44,7 @@ _$_Result _$$_ResultFromJson(Map<String, dynamic> json) => _$_Result(
       byline: json['byline'] as String?,
       type: json['type'] as String?,
       title: json['title'] as String?,
-      resultAbstract: json['result_abstract'] as String?,
+      resultAbstract: json['abstract'] as String?,
       desFacet: (json['des_facet'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -80,7 +80,7 @@ Map<String, dynamic> _$$_ResultToJson(_$_Result instance) => <String, dynamic>{
       'byline': instance.byline,
       'type': instance.type,
       'title': instance.title,
-      'result_abstract': instance.resultAbstract,
+      'abstract': instance.resultAbstract,
       'des_facet': instance.desFacet,
       'org_facet': instance.orgFacet,
       'per_facet': instance.perFacet,

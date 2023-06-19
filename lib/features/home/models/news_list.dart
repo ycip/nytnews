@@ -45,7 +45,7 @@ class Result with _$Result {
     String? byline,
     String? type,
     String? title,
-    String? resultAbstract,
+    @JsonKey(name: 'abstract') String? resultAbstract,
     List<String>? desFacet,
     List<String>? orgFacet,
     List<String>? perFacet,

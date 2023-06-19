@@ -242,6 +242,7 @@ mixin _$Result {
   String? get byline => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
+  @JsonKey(name: 'abstract')
   String? get resultAbstract => throw _privateConstructorUsedError;
   List<String>? get desFacet => throw _privateConstructorUsedError;
   List<String>? get orgFacet => throw _privateConstructorUsedError;
@@ -276,7 +277,7 @@ abstract class $ResultCopyWith<$Res> {
       String? byline,
       String? type,
       String? title,
-      String? resultAbstract,
+      @JsonKey(name: 'abstract') String? resultAbstract,
       List<String>? desFacet,
       List<String>? orgFacet,
       List<String>? perFacet,
@@ -436,7 +437,7 @@ abstract class _$$_ResultCopyWith<$Res> implements $ResultCopyWith<$Res> {
       String? byline,
       String? type,
       String? title,
-      String? resultAbstract,
+      @JsonKey(name: 'abstract') String? resultAbstract,
       List<String>? desFacet,
       List<String>? orgFacet,
       List<String>? perFacet,
@@ -591,7 +592,7 @@ class _$_Result implements _Result {
       this.byline,
       this.type,
       this.title,
-      this.resultAbstract,
+      @JsonKey(name: 'abstract') this.resultAbstract,
       final List<String>? desFacet,
       final List<String>? orgFacet,
       final List<String>? perFacet,
@@ -638,6 +639,7 @@ class _$_Result implements _Result {
   @override
   final String? title;
   @override
+  @JsonKey(name: 'abstract')
   final String? resultAbstract;
   final List<String>? _desFacet;
   @override
@@ -789,7 +791,7 @@ abstract class _Result implements Result {
       final String? byline,
       final String? type,
       final String? title,
-      final String? resultAbstract,
+      @JsonKey(name: 'abstract') final String? resultAbstract,
       final List<String>? desFacet,
       final List<String>? orgFacet,
       final List<String>? perFacet,
@@ -830,6 +832,7 @@ abstract class _Result implements Result {
   @override
   String? get title;
   @override
+  @JsonKey(name: 'abstract')
   String? get resultAbstract;
   @override
   List<String>? get desFacet;

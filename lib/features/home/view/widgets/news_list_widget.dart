@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../details/views/pages/details_page.dart';
 import '../../models/news_list.dart';
 import '../../providers/news_provider.dart';
-import '../pages/details_page.dart';
 
 class NewsListWidget extends ConsumerWidget {
   const NewsListWidget({super.key});
@@ -18,30 +18,41 @@ class NewsListWidget extends ConsumerWidget {
           return const Center(child: Text('List is empty'));
         }
         temp = [...list.value.results];
-        temp.sort((a, b) => a.updated!.compareTo(b.updated!));
+        temp.sort((a, b) => a.publishedDate!.compareTo(b.publishedDate!));
         return ListView.builder(
           itemCount: temp.length,
           padding: const EdgeInsets.all(24),
           itemBuilder: (_, i) => ListTile(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) {
-                return DetailsPage(temp[i].url!);
-              },
-            )),
-            leading: temp[i].media.isNotEmpty
-                ? Image.network(
-                    '${temp[i].media.first.mediaMetadata?.first.url}')
-                : const SizedBox(
-                    height: 55,
-                    width: 55,
-                    child: Placeholder(),
-                  ),
-            title: Text(
-              '${temp[i].title}',
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            subtitle: Row(
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) {
+                      return DetailsPage(temp[i].url!);
+                    },
+                  )),
+              leading: temp[i].media.isNotEmpty
+                  ? Image.network(
+                      '${temp[i].media.first.mediaMetadata?.first.url}')
+                  : const SizedBox(
+                      height: 55,
+                      width: 55,
+                      child: Placeholder(),
+                    ),
+              title: Text(
+                '${temp[i].title}',
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              subtitle: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      '${temp[i].resultAbstract}',
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ],
+              )
+              /* Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Icon(Icons.calendar_month_outlined),
@@ -53,8 +64,8 @@ class NewsListWidget extends ConsumerWidget {
                   ),
                 ),
               ],
-            ),
-          ),
+            ), */
+              ),
         );
       },
       error: (_) => const Center(
