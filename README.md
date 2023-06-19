@@ -1,16 +1,43 @@
-# rise
 
-A new Flutter project.
+# Nyt News Title
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+This application lists the most popular news of The New York Times. When you tap the news list, it shows details of the news.
+## API Reference
 
-A few resources to get you started if this is your first Flutter project:
+### Base Url
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+#### https://api.nytimes.com/svc/
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### Get most populer news 
+
+```http
+  GET mostpopular/v2/viewed/7.json?api-key=
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `api_key` | `string` | **Required**. TLe3lCHmUUFn5XpSo2MAL1icNpVMguor |
+
+#### Get news details
+
+```http
+  GET search/v2/articlesearch.json?fq=web_url:("$query")&api-key
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `api_key` | `string` | **Required**. TLe3lCHmUUFn5XpSo2MAL1icNpVMguor |
+| `query`      | `string` | **Required**. web URL value of news can be reachable via the most popular endpoint|
+
+
+## Project Stack
+
+**Folder Structure:** Feature First
+
+#### https://codewithandrea.com/articles/flutter-project-structure/
+
+**State Management:** Riverpod
+
+### https://pub.dev/packages/riverpod
+
