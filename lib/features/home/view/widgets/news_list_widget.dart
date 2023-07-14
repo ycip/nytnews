@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,12 +13,12 @@ class NewsListWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     List<Result> temp = [];
     final asyncData = ref.watch(newsProvider);
-    return asyncData.map(
+    return asyncData.when(
       data: (list) {
-        if (list.value.results.isEmpty) {
+        if (list.results.isEmpty) {
           return const Center(child: Text('List is empty'));
         }
-        temp = [...list.value.results];
+        temp = [...list.results];
         temp.sort((a, b) => a.publishedDate!.compareTo(b.publishedDate!));
         return ListView.builder(
           itemCount: temp.length,
@@ -51,29 +52,58 @@ class NewsListWidget extends ConsumerWidget {
                     ),
                   )
                 ],
-              )
-              /* Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.calendar_month_outlined),
-                Flexible(
-                  child: Text(
-                    '${temp[i].byline} ${temp[i].publishedDate.toString().substring(0, 11)}',
-                    maxLines: 2,
-                    style: const TextStyle(color: Colors.grey),
-                  ),
-                ),
-              ],
-            ), */
-              ),
+              )),
         );
       },
-      error: (_) => const Center(
+      error: (_, __) => const Center(
         child: Text('Something went wrong while loading the data!'),
       ),
-      loading: (_) => const Center(
+      loading: () => const Center(
         child: CircularProgressIndicator(),
       ),
     );
   }
+}
+
+RichText _textSpanBuilder(
+    {required String baseText, required String compareText}) {
+  List<TextSpan> finalList = [];
+  List<String> tempList = [];
+  const isExistStyle = TextStyle(color: Colors.red);
+  const isNotsExistStyle = TextStyle(color: Colors.blue);
+  const defaultTextStyle = TextStyle(color: Colors.black);
+
+  tempList = compareText.split(' ');
+  for (var i = 0; i < tempList.length; i++) {
+    if (tempList[i][0] == '{' && tempList[i][tempList[i].length - 1] == '}') {
+      if (baseText.contains(tempList[i])) {
+        finalList.add(
+          TextSpan(
+            text: '${tempList[i]} ',
+            style: isExistStyle,
+          ),
+        );
+      } else {
+        finalList.add(
+          TextSpan(
+            text: '${tempList[i]} ',
+            style: isNotsExistStyle,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                print(tempList[i]);
+                baseText = baseText + tempList[i];
+              },
+          ),
+        );
+      }
+    } else {
+      finalList.add(
+        TextSpan(
+          text: '${tempList[i]} ',
+          style: defaultTextStyle,
+        ),
+      );
+    }
+  }
+  return RichText(text: TextSpan(children: finalList));
 }
